@@ -5,6 +5,11 @@ VisualStudioVersion = 15.0.34829.251
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Automarket", "Automarket\Automarket.csproj", "{7F5B156D-3E10-4DE4-AD18-AE353FB35D24}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Domain", "Domain", "{4F5EFB81-0CFC-46A1-A704-1C51FAC10413}"
+	ProjectSection(SolutionItems) = preProject
+		Automarket.Domain.cs = Automarket.Domain.cs
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
