@@ -4,12 +4,19 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
+using Automarket.Domain.Entity;
+
 namespace Automarket.Controllers
 {
     public class HomeController : Controller
     {
         public ActionResult Index()
         {
+            Car car = new Car()
+            {
+                Name = "",
+                Speed = ""
+            };
             return View();
         }
 
