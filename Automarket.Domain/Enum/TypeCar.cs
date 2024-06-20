@@ -8,7 +8,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Automarket.Domain.Enum
 {
-    enum TypeCar
+    public enum TypeCar
     {
         [Display(Name = "Легковой автомобиль")]
         PassengerCar = 0,

@@ -14,10 +14,10 @@ namespace Automarket.Controllers
         {
             Car car = new Car()
             {
-                Name = "",
-                Speed = ""
+                Name = "aaa",
+                Speed = 123
             };
-            return View();
+            return View(car);
         }
 
         public ActionResult About()
