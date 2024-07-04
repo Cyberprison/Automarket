@@ -6,13 +6,21 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Automarket.Models;
 
+using Automarket.Domain.Entity;
+
 namespace Automarket.Controllers
 {
     public class HomeController : Controller
     {
         public IActionResult Index()
         {
-            return View();
+            Car car = new Car()
+            {
+                Name = "Lada",
+                Price = 20000
+            };
+
+            return View(car);
         }
 
         public IActionResult About()
