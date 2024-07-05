@@ -45,6 +45,15 @@
     <Compile Include="Interfaces\ICarService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\Automarket.DAL\Automarket.DAL.csproj">
+      <Project>{64132FD5-D474-448A-95AD-9DFD1321C733}</Project>
+      <Name>Automarket.DAL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Automarket.Domain\Automarket.Domain.csproj">
+      <Project>{56B03B05-B723-4921-8D39-5756188B976C}</Project>
+      <Name>Automarket.Domain</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

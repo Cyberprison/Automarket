@@ -46,8 +46,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Entity\Car.cs" />
+    <Compile Include="Enum\StatusCode.cs" />
     <Compile Include="Enum\TypeCar.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Response\BaseResponse.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

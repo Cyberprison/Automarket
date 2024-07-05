@@ -14,6 +14,8 @@ using Automarket.DAL;
 using Microsoft.EntityFrameworkCore;
 using Automarket.DAL.Interfaces;
 using Automarket.DAL.Repositories;
+using Automarket.Service.Interfaces;
+using Automarket.Service.Implementations;
 
 namespace Automarket
 {
@@ -33,6 +35,7 @@ namespace Automarket
             services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(connection));
 
             services.AddScoped<ICarRepository, CarRepository>();
+            services.AddScoped<ICarService, CarService>();
 
             services.Configure<CookiePolicyOptions>(options =>
             {
