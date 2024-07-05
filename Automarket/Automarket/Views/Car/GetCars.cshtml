@@ -1,0 +1,17 @@
+﻿@model  List< Automarket.Domain.Entity.Car>;
+
+@{
+    //ViewData["Title"] = "GetCars";
+
+    ViewBag.Title = "title";
+
+    Layout = null;
+}
+
+@{ 
+    foreach(var car in Model)
+    {
+        <p>@car.Model</p>
+    }
+}
+

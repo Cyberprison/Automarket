@@ -13,22 +13,8 @@ namespace Automarket.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ICarRepository _carRepository;
-
-        public HomeController(ICarRepository carRepository)
+        public IActionResult Index()
         {
-            _carRepository = carRepository;
-        }
-
-        //public IActionResult Index()
-        //{
-        //    var responce = _carRepository.Select();
-        //    return View();
-        //}
-
-        public async Task<IActionResult> Index()
-        {
-            var responce = await _carRepository.Select();
             return View();
         }
 
