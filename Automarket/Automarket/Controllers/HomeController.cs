@@ -2,25 +2,34 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Automarket.Models;
 
 using Automarket.Domain.Entity;
+using Automarket.DAL.Interfaces;
+using System.Threading.Tasks;
 
 namespace Automarket.Controllers
 {
     public class HomeController : Controller
     {
-        public IActionResult Index()
-        {
-            Car car = new Car()
-            {
-                Name = "Lada",
-                Price = 20000
-            };
+        private readonly ICarRepository _carRepository;
 
-            return View(car);
+        public HomeController(ICarRepository carRepository)
+        {
+            _carRepository = carRepository;
+        }
+
+        //public IActionResult Index()
+        //{
+        //    var responce = _carRepository.Select();
+        //    return View();
+        //}
+
+        public async Task<IActionResult> Index()
+        {
+            var responce = await _carRepository.Select();
+            return View();
         }
 
         public IActionResult About()

@@ -12,6 +12,8 @@ using Microsoft.Extensions.DependencyInjection;
 
 using Automarket.DAL;
 using Microsoft.EntityFrameworkCore;
+using Automarket.DAL.Interfaces;
+using Automarket.DAL.Repositories;
 
 namespace Automarket
 {
@@ -29,6 +31,8 @@ namespace Automarket
         {
             var connection = Configuration.GetConnectionString("DefaultConnection");
             services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(connection));
+
+            services.AddScoped<ICarRepository, CarRepository>();
 
             services.Configure<CookiePolicyOptions>(options =>
             {
