@@ -22,7 +22,7 @@ namespace Automarket.Service.Implementations
             _carRepository = carRepository;
         }
 
-        public async Task<IBaseResponse<Car>> GetCar(int id)
+        public async Task<BaseResponse<Car>> GetCar(int id)
         {
             var baseResponse = new BaseResponse<Car>();
 
@@ -52,7 +52,7 @@ namespace Automarket.Service.Implementations
             }
         }
 
-        public async Task<IBaseResponse<Car>> GetCarByName(string name)
+        public async Task<BaseResponse<Car>> GetCarByName(string name)
         {
             var baseResponse = new BaseResponse<Car>();
 
@@ -82,7 +82,7 @@ namespace Automarket.Service.Implementations
             }
         }
 
-        public async Task<IBaseResponse<bool>> DeleteCar(int id)
+        public async Task<BaseResponse<bool>> DeleteCar(int id)
         {
             var baseResponse = new BaseResponse<bool>();
 
@@ -132,6 +132,10 @@ namespace Automarket.Service.Implementations
                 };
 
                 await _carRepository.Create(car);
+
+                baseResponse.StatusCode = StatusCode.OK;
+
+                return baseResponse;
             }
             catch (Exception ex)
             {
@@ -139,7 +143,7 @@ namespace Automarket.Service.Implementations
                 {
                     Description = $"[CreateCar] : {ex.Message}",
                     StatusCode = StatusCode.InternalServerError
-            };
+                };
             }
         }
 
@@ -167,7 +171,48 @@ namespace Automarket.Service.Implementations
             {
                 return new BaseResponse<IEnumerable<Car>>()
                 {
-                    Description = $"[GetCars] : {ex.Message}"
+                    Description = $"[GetCars] : {ex.Message}",
+                    StatusCode = StatusCode.InternalServerError
+                };
+            }
+        }
+
+        public async Task<BaseResponse<Car>> Edit(int id, CarViewModel model)
+        {
+            var baseResponse = new BaseResponse<Car>();
+
+            try
+            {
+                var car = await _carRepository.Get(id);
+
+                if (car == null)
+                {
+                    baseResponse.Description = "Car not found";
+                    baseResponse.StatusCode = StatusCode.CarNotFound;
+
+                    return baseResponse;
+                }
+
+                car.Description = model.Description;
+                car.Model = model.Model;
+                car.Price = model.Price;
+                car.Speed = model.Speed;
+                car.DateCreate = model.DateCreate;
+                car.Name = model.Name;
+
+                await _carRepository.Update(car);
+
+                return baseResponse;
+
+                // TypeCar
+
+            }
+            catch (Exception ex)
+            {
+                return new BaseResponse<Car>()
+                {
+                    Description = $"[Edit] : {ex.Message}",
+                    StatusCode = StatusCode.InternalServerError
                 };
             }
         }
