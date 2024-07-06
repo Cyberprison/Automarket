@@ -50,6 +50,7 @@
     <Compile Include="Enum\TypeCar.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Response\BaseResponse.cs" />
+    <Compile Include="ViewModels\Car\CarViewModel.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

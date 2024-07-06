@@ -9,6 +9,7 @@ using Automarket.Domain.Entity;
 using Automarket.Domain.Response;
 using Automarket.DAL.Interfaces;
 using Automarket.Domain.Enum;
+using Automarket.Domain.ViewModels.Car;
 
 namespace Automarket.Service.Implementations
 {
@@ -19,6 +20,127 @@ namespace Automarket.Service.Implementations
         public CarService(ICarRepository carRepository)
         {
             _carRepository = carRepository;
+        }
+
+        public async Task<IBaseResponse<Car>> GetCar(int id)
+        {
+            var baseResponse = new BaseResponse<Car>();
+
+            try
+            {
+                var car = await _carRepository.Get(id);
+
+                if (car == null)
+                {
+                    baseResponse.Description = "User not found";
+                    baseResponse.StatusCode = StatusCode.UserNotFound;
+
+                    return baseResponse;
+                }
+                baseResponse.Data = car;
+                baseResponse.StatusCode = StatusCode.OK;
+
+                return baseResponse;
+            }
+            catch (Exception ex)
+            {
+                return new BaseResponse<Car>()
+                {
+                    Description = $"[GetCar] : {ex.Message}",
+                    StatusCode = StatusCode.InternalServerError
+                };
+            }
+        }
+
+        public async Task<IBaseResponse<Car>> GetCarByName(string name)
+        {
+            var baseResponse = new BaseResponse<Car>();
+
+            try
+            {
+                var car = await _carRepository.GetByName(name);
+
+                if (car == null)
+                {
+                    baseResponse.Description = "User not found";
+                    baseResponse.StatusCode = StatusCode.UserNotFound;
+
+                    return baseResponse;
+                }
+                baseResponse.Data = car;
+                baseResponse.StatusCode = StatusCode.OK;
+
+                return baseResponse;
+            }
+            catch (Exception ex)
+            {
+                return new BaseResponse<Car>()
+                {
+                    Description = $"[GetCarByName] : {ex.Message}",
+                    StatusCode = StatusCode.InternalServerError
+                };
+            }
+        }
+
+        public async Task<IBaseResponse<bool>> DeleteCar(int id)
+        {
+            var baseResponse = new BaseResponse<bool>();
+
+            try
+            {
+                var car = await _carRepository.Get(id);
+
+                if (car == null)
+                {
+                    baseResponse.Description = "Use not found";
+                    baseResponse.StatusCode = StatusCode.UserNotFound;
+
+                    return baseResponse;
+                }
+                baseResponse.Data = true;
+                baseResponse.StatusCode = StatusCode.OK;
+
+                await _carRepository.Delete(car);
+
+                return baseResponse;
+            }
+            catch (Exception ex)
+            {
+                return new BaseResponse<bool>()
+                {
+                    Description = $"[DeleteCar] : {ex.Message}",
+                    StatusCode = StatusCode.UserNotFound
+                };
+            }
+        }
+
+        public async Task<BaseResponse<CarViewModel>> CreateCar(CarViewModel carViewModel)
+        {
+            var baseResponse = new BaseResponse<CarViewModel>();
+
+            try
+            {
+                var car = new Car()
+                {
+                    Description = carViewModel.Description,
+                    DateCreate = carViewModel.DateCreate,
+                    Speed = carViewModel.Speed,
+                    Model = carViewModel.Model,
+                    Price = carViewModel.Price,
+                    Name = carViewModel.Name,
+                    TypeCar = (TypeCar)Convert.ToInt32(carViewModel.TypeCar)
+                };
+
+                await _carRepository.Create(car);
+            }
+            catch (Exception ex)
+            {
+                return new BaseResponse<CarViewModel>()
+                {
+                    Description = $"[CreateCar] : {ex.Message}",
+                    StatusCode = StatusCode.InternalServerError
+            };
+            }
         }
 
         public async Task<BaseResponse<IEnumerable<Car>>> GetCars()
