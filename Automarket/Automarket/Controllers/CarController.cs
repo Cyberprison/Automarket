@@ -56,7 +56,7 @@ namespace Automarket.Controllers
         }
 
         [HttpGet]
-        [Authorize(Roles = "Admin")]
+        //[Authorize(Roles = "Admin")]
         public async Task<IActionResult> Save(int id)
         {
             if (id == 0)
@@ -65,11 +65,11 @@ namespace Automarket.Controllers
             }
 
             var response = await _carService.GetCar(id);
-
             if (response.StatusCode == Automarket.Domain.Enum.StatusCode.OK)
             {
                 return View(response.Data);
             }
+
             return RedirectToAction("Error");
         }
 

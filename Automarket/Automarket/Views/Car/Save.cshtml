@@ -1,0 +1,57 @@
+﻿@model Automarket.Domain.ViewModels.Car.CarViewModel
+
+@{
+    //ViewBag.Title = "title";
+    //Layout = _Layout;
+
+    var textTitle = Model?.Id == 0 ? "Change data" : "Add data";
+
+    //ps в методе контроллера save который гет, закомментрировал админа, с ним не работает, типо не пропускает
+}
+
+<h1>@textTitle</h1>
+
+<div>
+    <form asp-action="Save" enctype="multipart/form-data">
+        <input asp-for="Id" hidden />
+
+        <div asp-validation-summary="All"></div>
+
+        <div>
+            <label asp-for="Name"></label>
+            <input asp-for="Name" type="text" />
+        </div>
+
+        <div>
+            <label asp-for="Model"></label>
+            <input asp-for="Model" type="text" />
+        </div>
+
+        <div>
+            <label asp-for="Speed"></label>
+            <input asp-for="Speed" type="text" />
+        </div>
+
+        <div>
+            <label asp-for="Description"></label>
+            <textarea asp-for="Description"></textarea>
+        </div>
+
+        <div>
+            <label asp-for="Price"></label>
+            <input asp-for="Price" type="text" />
+        </div>
+
+        <div>
+            <select asp-for="TypeCar" id="carTypeId"></select>
+        </div>
+
+        <div>
+            <input asp-for="Avatar" type="file" />
+        </div>
+
+        <button type="submit">Enter</button>
+
+    </form>
+</div>
+

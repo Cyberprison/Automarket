@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+using Microsoft.AspNetCore.Http;
+
 namespace Automarket.Domain.ViewModels.Car
 {
     public class CarViewModel
@@ -23,5 +25,7 @@ namespace Automarket.Domain.ViewModels.Car
         public DateTime DateCreate { get; set; }
 
         public string TypeCar { get; set; }
+
+        public IFormFile Avatar { get; set; }
     }
 }

@@ -1,17 +1,98 @@
-﻿@model  List< Automarket.Domain.Entity.Car>;
+﻿@model List<Automarket.Domain.Entity.Car>;
 
 @{
+    //переписать без использования ViewBag
+    //использовать какую-нибудь ViewModel folder
     //ViewData["Title"] = "GetCars";
+    ViewBag.Title = "GetCars";
 
-    ViewBag.Title = "title";
-
-    Layout = null;
+    //не нужен, т.к. автоматически подключается в _ViewStart
+    //Layout = "_Layout";
 }
 
-@{ 
-    foreach(var car in Model)
-    {
-        <p>@car.Model</p>
-    }
+<style></style>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+
+@if (Model.Count == 0)
+{
+    <p>Products coming soon</p>
 }
+else
+{
+    <div>
+        <button id="showCardsId" style="display: none">Show car cards</button>
+        <button id="hideCardsId">Hide car cards</button>
+    </div>
+
+    <div id="card">
+        @{
+            int i = 0;
+            foreach (var car in Model)
+            {
+                i++;
+        <div>
+            img
+            <p>Name: @car.Name</p>
+            <p>Desc: @car.Description</p>
+            <p>Price: @car.Price</p>
+            <p>Type: @car.TypeCar</p>
+
+            <a asp-controller="Car" asp-action="GetCar" asp-route-id="@car.Id">About</a>
+
+            @*<a asp-controller="Basket" asp-action="Add" asp-route-id="@id">Add</a>*@
+
+            @if (User.IsInRole("Admin"))
+            {
+                <a asp-controller="Car" asp-action="Delete" asp-route-id="@car.Id">Delete</a>
+                <a asp-controller="Car" asp-action="Save" asp-route-id="@car.Id">Change</a>
+            }
+
+        </div>
+            }
+        }
+    </div>
+}
+
+<script type="text/javascript">
+    function hideCardElement() {
+        $("#showCardsId").show();
+        $("#hideCardsId").hide();
+        $("#card").hide();
+    };
+
+    function showCardElement() {
+        $("#showCardsId").hide();
+        $("#hideCardsId").show();
+        $("#card").show();
+    };
+
+    $(document).ready(function () {
+        $("#hideCardsId").bind("click", hideCardElement);
+        $("#showCardsId").bind("click", showCardElement);
+    });
+</script>
+
+<div>
+    туду:
+
+    +кнопка показать скрыть элементы
+
+    +проверка есть ли товары
+
+    +если нет то сообщение что скоро появятся
+
+    +если есть то вывод
+    картинка
+    название
+    описание
+    цена
+    тип
+
+    внизу ссылки, потом доделает
+    +перейти на товар
+    добавить в корзину
+
+    если роль админ, то добавить или удалить товар
+</div>
 
